@@ -1,4 +1,4 @@
-#include <FastLED.h>
+ #include <FastLED.h>
 #include <Adafruit_NeoPixel.h>
 
 #define DATA_PIN 6
@@ -29,16 +29,56 @@ void loop() {
   //theaterChaseRainbow(50);
   //bubbleFloat();
   //BlinkyBlinkahs(strip.Color(43, 255, 0));
-  CoralGrabbed();
-  AlgaeGrabbed();
-  AbleToScore();
-  HungerSatisfied();
-  BlueClimbingAnim();
-  RedClimbingAnim();
-
+  //CoralGrabbed();
+  //AlgaeGrabbed();
+  //HungerSatisfied();
+  //BlueClimbingAnim();
+  //RedClimbingAnim();
+  DisabeledAnim();
 }
 
+  void DisabeledAnim() {
+  uint32_t color1 = strip.Color(0, 255, 0);
+  uint32_t color2 = strip.Color(0, 253, 0);
+  uint32_t color3 = strip.Color(0, 251, 0);
+  uint32_t color4 = strip.Color(0, 249, 0);
+  uint32_t color5 = strip.Color(0, 247, 0);
+
+  while (true) {
+    int a = 0;
+    int b = -1;
+    while (a < 45){
+    strip.clear();
+    if (a < 45){
+    setBubbleColor(2370,strip.Color(43, 255, 0));
+    setBubbleColor(a, color1);
+    setBubbleColor(a-1, color2);
+    setBubbleColor(a-2, color3);
+    setBubbleColor(a-3, color4);
+    setBubbleColor(a-4, color5);
+    a++;
+  } else b = 45;
+
+  if (b > 0) {
+    setBubbleColor(2370,strip.Color(43, 255, 0));
+    setBubbleColor(b, color1);
+    setBubbleColor(b+1, color2);
+    setBubbleColor(b+2, color3);
+    setBubbleColor(b+3, color4);
+    setBubbleColor(b+4, color5);
+    b--;
+  } else a = 0;
+  
+  
+    strip.show();
+    delay(100);
+  }
+  }
+  }
+
  void BlinkyBlinkahs(uint32_t color){
+  setBubbleColor(2370, strip.Color(0, 255, 17));
+
   for (int i = 0; i < 32; i++){
   setBubbleColor(i, color);
   }
@@ -47,40 +87,91 @@ void loop() {
   for (int i = 0; i < 32; i++){
     setBubbleColor(i, strip.Color(0, 0, 0));
   }
+  
   strip.show();
   delay(250);
 }
 
 void CoralGrabbed(){
-  uint32_t color1 = strip.Color(255, 255, 255);
-  uint32_t color2 = strip.Color(255, 255, 255);
-  uint32_t color3 = strip.Color(255, 255, 255);
-  for(int a=0; a<34; a++){
+  uint32_t color1 = strip.Color(204, 243, 252);
+  uint32_t color2 = strip.Color(204, 243, 252);
+  uint32_t color3 = strip.Color(222, 249, 255);
+  uint32_t bcolor1 = strip.Color(204, 243, 252);
+  uint32_t bcolor2 = strip.Color(204, 243, 252);
+  uint32_t bcolor3 = strip.Color(222, 249, 255);
+  while (true) {
+  int a = 0;
+  int b = -22;
+  while (a < 35 || b < 35) {
     strip.clear();
     
+    if (a < 35) {
     setBubbleColor(a, color1);
     setBubbleColor(a-1, color2);
     setBubbleColor(a-2, color3);
+    a++;
+    } else {
+      a = 0;
+    }
+
+    if (b < 35) {
+    setBubbleColor(b, bcolor1);
+    setBubbleColor(b-1, bcolor2);
+    setBubbleColor(b-2, bcolor3);
+      b++;
+    } else {
+      b = 0;
+    }
+
+    setBubbleColor(2370, strip.Color(0, 255, 17));
+
     strip.show();
     delay(100);
+    }
+  }
 }
-}
+
 void AlgaeGrabbed(){
   uint32_t color1 = strip.Color(53, 190, 171);
   uint32_t color2 = strip.Color(53, 190, 171);
   uint32_t color3 = strip.Color(4, 204, 222);
-  for(int a=0; a<34; a++){
+  uint32_t bcolor1 = strip.Color(53, 190, 171);
+  uint32_t bcolor2 = strip.Color(53, 190, 171);
+  uint32_t bcolor3 = strip.Color(4, 204, 222);
+  while (true) {
+  int a = 0;
+  int b = -22;
+  while (a < 35 || b < 35) {
     strip.clear();
     
+    if (a < 35) {
     setBubbleColor(a, color1);
     setBubbleColor(a-1, color2);
     setBubbleColor(a-2, color3);
+    a++;
+    } else {
+      a = 0;
+    }
+
+    if (b < 35) {
+    setBubbleColor(b, bcolor1);
+    setBubbleColor(b-1, bcolor2);
+    setBubbleColor(b-2, bcolor3);
+      b++;
+    } else {
+      b = 0;
+    }
+
+    setBubbleColor(2370, strip.Color(0, 255, 17));
+
     strip.show();
     delay(100);
+    }
   }
-}
+}  
 
 void HungerSatisfied(){
+  setBubbleColor(2370, strip.Color(0, 255, 17));
   for (int i = 0; i < 32; i++){
     setBubbleColor(i, strip.Color(255, 255, 255));
   }
@@ -93,62 +184,72 @@ void HungerSatisfied(){
   delay(250);
 }
 
-void AbleToScore(){
-  int topLimit;
-  int uppies;
-  for (int e = 0; e < 64; e++){
-    if (e > 32) {
-      topLimit = 32 - e;
-    } else {
-      topLimit = e;
-    }
-    for (int upppies = 0; uppies < topLimit; uppies++) {
-      setBubbleColor(uppies, strip.Color(43, 255, 0));
-    }
-  }
-    strip.show();
-    delay(20); 
-  }
-
 void BlueClimbingAnim() {
   uint32_t color1 = strip.Color(0, 0, 255);
-  uint32_t color2 = strip.Color(0, 123, 255);
-  uint32_t color3 = strip.Color(0, 229, 255);
-  for(int a=0; a<34; a++){
+  uint32_t color2 = strip.Color(0, 0, 253);
+  uint32_t color3 = strip.Color(0, 0, 251);
+  uint32_t color4 = strip.Color(0, 0, 249);
+  uint32_t color5 = strip.Color(0, 0, 247);
+  uint32_t color6 = strip.Color(0, 0, 245);
+  uint32_t color7 = strip.Color(0, 0, 243);
+  uint32_t color8 = strip.Color(0, 0, 241);
+  uint32_t color9 = strip.Color(0, 0, 239);
+  uint32_t color10 = strip.Color(0, 0, 237);
+  uint32_t color11 = strip.Color(0, 0, 235);
+  uint32_t color12 = strip.Color(0, 0, 233);
+  for(int a=0; a<45; a++){
     strip.clear();
-    if (a >= 30){
-      setBubbleColor(2370,strip.Color(0, 0, 255));
-    }
-    else{
-      setBubbleColor(2370,strip.Color(0, 0, 0));
-    }
-    
+    setBubbleColor(2370, strip.Color(0, 255, 17));
     setBubbleColor(a, color1);
     setBubbleColor(a-1, color2);
     setBubbleColor(a-2, color3);
+    setBubbleColor(a-3, color4);
+    setBubbleColor(a-4, color5);
+    setBubbleColor(a-5, color6);
+    setBubbleColor(a-6, color7);
+    setBubbleColor(a-7, color8);
+    setBubbleColor(a-8, color9);
+    setBubbleColor(a-9, color10);
+    setBubbleColor(a-10, color11);
+    setBubbleColor(a-11, color12);
     strip.show();
-    delay(100);
+    delay(10);
 }
 }
 
 void RedClimbingAnim() {
   uint32_t color1 = strip.Color(255, 0, 0);
-  uint32_t color2 = strip.Color(255, 0, 81);
-  uint32_t color3 = strip.Color(255, 0, 166);
-  for(int a=0; a<34; a++){
+  uint32_t color2 = strip.Color(255, 2, 0);
+  uint32_t color3 = strip.Color(255, 4, 0);
+  uint32_t color4 = strip.Color(255, 6, 0);
+  uint32_t color5 = strip.Color(255, 8, 0);
+  uint32_t color6 = strip.Color(255, 10, 0);
+  uint32_t color7 = strip.Color(255, 12, 0);
+  uint32_t color8 = strip.Color(255, 14, 0);
+  uint32_t color9 = strip.Color(255, 16, 0);
+  uint32_t color10 = strip.Color(255, 18, 0);
+  uint32_t color11 = strip.Color(255, 20, 0);
+  uint32_t color12 = strip.Color(255, 22, 0);
+
+
+
+  for(int a=0; a<45; a++){
     strip.clear();
-    if (a >= 30){
-      setBubbleColor(2370,strip.Color(255, 0, 0));
-    }
-    else{
-      setBubbleColor(2370,strip.Color(0, 0, 0));
-    }
-    
+    setBubbleColor(2370, strip.Color(0, 255, 17));
     setBubbleColor(a, color1);
     setBubbleColor(a-1, color2);
     setBubbleColor(a-2, color3);
+    setBubbleColor(a-3, color4);
+    setBubbleColor(a-4, color5);
+    setBubbleColor(a-5, color6);
+    setBubbleColor(a-6, color7);
+    setBubbleColor(a-7, color8);
+    setBubbleColor(a-8, color9);
+    setBubbleColor(a-9, color10);
+    setBubbleColor(a-10, color11);
+    setBubbleColor(a-11, color12);
     strip.show();
-    delay(100);
+    delay(10);
 }
 }
 
