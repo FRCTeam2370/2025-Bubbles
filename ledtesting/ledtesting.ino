@@ -1,4 +1,3 @@
- #include <FastLED.h>
 #include <Adafruit_NeoPixel.h>
 
 #define DATA_PIN 6
@@ -6,41 +5,104 @@
 void setBubbleColor(int bubble, uint32_t color);
 Adafruit_NeoPixel strip(NUM_LEDS, DATA_PIN, NEO_GRB + NEO_KHZ800);
 
-int buttonState1 = 0;
-int buttonState2 = 0;
-int buttonState3 = 0;
-int buttonState4 = 0;
-
-// CRGB leds[NUM_LEDS];
-
 const int digitalIn1 = 2;
 const int digitalIn2 = 3;
 const int digitalIn3 = 4;
 const int digitalIn4 = 5;
 
+int robotStatus = 0;
+
 void setup() {
-// FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
-pinMode(digitalIn1, INPUT);
-pinMode(digitalIn2, INPUT);
-pinMode(digitalIn3, INPUT);
-pinMode(digitalIn4, INPUT);
-strip.begin();
+
+  pinMode(digitalIn1, INPUT);
+  pinMode(digitalIn2, INPUT);
+  pinMode(digitalIn3, INPUT);
+  pinMode(digitalIn4, INPUT);
+
+  digitalWrite(digitalIn1, HIGH); // turn on pullup resistors
+  digitalWrite(digitalIn2, HIGH); // turn on pullup resistors
+  digitalWrite(digitalIn3, HIGH); // turn on pullup resistors
+  digitalWrite(digitalIn4, HIGH); // turn on pullup resistors
+
+
+  strip.begin();
   strip.setBrightness(50);
-strip.show();
+  strip.show();
 }
 
 //blink the entire strip with different colors 
 
 void loop() {
-  buttonState1 = digitalRead(digitalIn1);
-  buttonState2 = digitalRead(digitalIn2);
-  buttonState3 = digitalRead(digitalIn3);
-  buttonState4 = digitalRead(digitalIn4);
+  // Determin Status of Robot to change LED patterns.
+  // This uses 4 DIO ports to send a Binary encoded status giving us 15 options beyond the defualt standby.
+  // Since we are using the inernal pull ups, pins will be "Active low" and 
+  // no wires connected will be 4 high inputs, we are inverting that to be treated as 0
 
-  if ((buttonState1 == 0) && (buttonState2 == 0) && (buttonState3 == 0) && (buttonState4 == 0)){
-    
+  if (digitalRead(digitalIn1) == 0){
+    robotStatus = robotStatus + 1;
   }
-  
+  if (digitalRead(digitalIn2) == 0){
+    robotStatus = robotStatus + 2;
+  }
+  if (digitalRead(digitalIn3) == 0){
+    robotStatus = robotStatus + 4;
+  }
+  if (digitalRead(digitalIn4) == 0){
+    robotStatus = robotStatus + 8;
+  }
+
+
+//Below are the different functions we can run and which "status" they go with
+//Functions should limit to one animation sequence then exit and come back here to check to see if status has changed.
+switch (robotStatus) {
+  case 0: // Default no input
+    bubbleFloat();
+    
+    break;
+    
+  case 1:// Driving Away From Feeding Station
+
+    break;
+    
+  case 2://Have Coral
+
+    break;
+    
+  case 3://Have Algae
+
+    break;
+    
+  case 4://Able to score
+
+    break;
+    
+  case 5:
+
+    break;
+    
+  case 6:// Climbing Red
+
+    break;
+    
+  case 7://Climbing Blue
+
+    break;
+    
+  case 8:
+
+    break;
+    
+  case 9:
+
+    break;
+    
+  case 10:
+
+    break;
+
+  default:
+  break;
+}
 
   //theaterChase(strip.Color(43, 255, 0),100);
   //theaterChaseRainbow(50);
@@ -326,7 +388,6 @@ void algaeGrabbed(){
   uint32_t bcolor1 = strip.Color(53, 190, 171);
   uint32_t bcolor2 = strip.Color(53, 190, 171);
   uint32_t bcolor3 = strip.Color(4, 204, 222);
-  while (true) {
   int a = 0;
   int b = -22;
   while (a < 35 || b < 35) {
@@ -355,7 +416,7 @@ void algaeGrabbed(){
     strip.show();
     delay(100);
     }
-  }
+  
 }  
 
 void hungerSatisfied(){
