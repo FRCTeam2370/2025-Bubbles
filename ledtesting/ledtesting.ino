@@ -6,12 +6,24 @@
 void setBubbleColor(int bubble, uint32_t color);
 Adafruit_NeoPixel strip(NUM_LEDS, DATA_PIN, NEO_GRB + NEO_KHZ800);
 
-
+int buttonState1 = 0;
+int buttonState2 = 0;
+int buttonState3 = 0;
+int buttonState4 = 0;
 
 // CRGB leds[NUM_LEDS];
 
+const int digitalIn1 = 2;
+const int digitalIn2 = 3;
+const int digitalIn3 = 4;
+const int digitalIn4 = 5;
+
 void setup() {
 // FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+pinMode(digitalIn1, INPUT);
+pinMode(digitalIn2, INPUT);
+pinMode(digitalIn3, INPUT);
+pinMode(digitalIn4, INPUT);
 strip.begin();
   strip.setBrightness(50);
 strip.show();
@@ -20,10 +32,15 @@ strip.show();
 //blink the entire strip with different colors 
 
 void loop() {
-  // Set all LEDs to red
+  buttonState1 = digitalRead(digitalIn1);
+  buttonState2 = digitalRead(digitalIn2);
+  buttonState3 = digitalRead(digitalIn3);
+  buttonState4 = digitalRead(digitalIn4);
 
-  //setBubbleColor(20, strip.Color(43, 255, 0));
-  //strip.show();
+  if ((buttonState1 == 0) && (buttonState2 == 0) && (buttonState3 == 0) && (buttonState4 == 0)){
+    
+  }
+  
 
   //theaterChase(strip.Color(43, 255, 0),100);
   //theaterChaseRainbow(50);
@@ -34,7 +51,7 @@ void loop() {
   //hungerSatisfied();
   //blueClimbingAnim();
   //redClimbingAnim();
-  //disabeledAnimOption1();
+  // disabeledAnimOption1();
   //disabeledAnimOption2();
 }
 
